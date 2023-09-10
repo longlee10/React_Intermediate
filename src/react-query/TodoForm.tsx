@@ -1,52 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useRef } from "react";
-import { Todo } from "./hooks/useTodos";
-
-interface TodoContext {
-  prevTodos: Todo[];
-}
+import useAddTodo from "./hooks/useAddTodo";
 
 const TodoForm = () => {
-  const queryClient = useQueryClient();
   const ref = useRef<HTMLInputElement>(null);
-
-  const addTodo = useMutation<Todo, Error, Todo, TodoContext>({
-    mutationFn: (todo: Todo) =>
-      axios
-        .post<Todo>("https://xjsonplaceholder.typicode.com/posts", todo)
-        .then((res) => res.data),
-
-    // Optimistic approach
-    onMutate: (newTodo: Todo) => {
-      const prevTodos = queryClient.getQueryData<Todo[]>(["todos"]) || [];
-      // Approach 1 invalidating cache -> Use the queryClient object. Not working in JSON place holder
-      // Approach 2: Updating data in cache
-      queryClient.setQueryData<Todo[]>(["todos"], (todos) => [
-        newTodo,
-        ...(todos || []),
-      ]);
-
-      if (ref.current) ref.current.value = "";
-
-      return { prevTodos };
-    },
-
-    // if post request success: update the todo list (Pessimistic approach)
-    // Now with optimistic approach, in onSuccess success scenarios
-    onSuccess: (savedTodo, newTodo) => {
-      queryClient.setQueryData<Todo[]>(["todos"], (todos) =>
-        todos?.map((todo) => (todo === newTodo ? savedTodo : todo))
-      );
-    },
-
-    // Handling error scenario
-    onError: (err, newTodo, context) => {
-      if (!context) return;
-
-      // returning the previous UI
-      queryClient.setQueryData<Todo[]>(["todos"], context.prevTodos);
-    },
+  const addTodo = useAddTodo(() => {
+    if (ref.current) ref.current.value = "";
   });
 
   return (

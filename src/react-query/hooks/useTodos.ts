@@ -1,3 +1,4 @@
+import todosKey from "../constant";
 import useData from "./useData";
 
 export interface Todo {
@@ -7,6 +8,6 @@ export interface Todo {
   completed: boolean;
 }
 
-const useTodos = () => useData<Todo[]>("todos");
+const useTodos = () => useData<Todo[]>(todosKey);
 
 export default useTodos;
