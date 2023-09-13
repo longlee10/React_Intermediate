@@ -1,12 +1,6 @@
+import { Todo } from "../api-client/todoService";
 import todosKey from "../constant";
 import useData from "./useData";
-
-export interface Todo {
-  id: number;
-  title: string;
-  userId: number;
-  completed: boolean;
-}
 
 const useTodos = () => useData<Todo[]>(todosKey);
 

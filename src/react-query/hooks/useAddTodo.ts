@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Todo } from "./useTodos";
 import todosKey from "../constant";
-import API_Client from "../api-client/api";
+import todoAPI, { Todo } from "../api-client/todoService";
 
 interface TodoContext {
   prevTodos: Todo[];
@@ -9,10 +8,9 @@ interface TodoContext {
 
 const useAddTodo = (onAdd: () => void) => {
   const queryClient = useQueryClient();
-  const api = new API_Client<Todo>("todos");
 
   return useMutation<Todo, Error, Todo, TodoContext>({
-    mutationFn: api.postAPI, // referencing
+    mutationFn: todoAPI.postAPI, // referencing
 
     // Optimistic approach
     onMutate: (newTodo: Todo) => {
