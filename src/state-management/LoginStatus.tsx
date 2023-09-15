@@ -1,4 +1,4 @@
-import useAuthProvider from "./hooks/useAuthProvider";
+import useAuthProvider from "./auth/useAuthProvider";
 
 const LoginStatus = () => {
   // const [user, setUser] = useState('');

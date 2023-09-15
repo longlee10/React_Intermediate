@@ -1,9 +1,10 @@
-import useAuthProvider from "./hooks/useAuthProvider";
-import useTasksProvider from "./hooks/useTasks";
+import { useContext } from "react";
+import useAuthProvider from "../auth/useAuthProvider";
+import TaskContext from "./taskContext";
 
 const TaskList = () => {
   // const [tasks, setTasks] = useState<Task[]>([]);
-  const { tasks, dispatch } = useTasksProvider();
+  const { tasks, dispatch } = useContext(TaskContext);
   const { user } = useAuthProvider();
   return (
     <>
