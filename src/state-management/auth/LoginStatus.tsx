@@ -1,15 +1,17 @@
 import useAuthProvider from "./useAuthProvider";
+import useAuthStore from "./user";
 
 const LoginStatus = () => {
   // const [user, setUser] = useState('');
-  const { user, dispatchUser } = useAuthProvider();
+  // const { user, dispatchUser } = useAuthProvider();
+  const { user, login, logout } = useAuthStore();
 
   if (user)
     return (
       <>
         <div>
           <span className="mx-2">{user}</span>
-          <a onClick={() => dispatchUser({ type: "LOGOUT" })} href="#">
+          <a onClick={() => logout()} href="#">
             Logout
           </a>
         </div>
@@ -17,12 +19,7 @@ const LoginStatus = () => {
     );
   return (
     <div>
-      <a
-        onClick={() =>
-          dispatchUser({ type: "LOGIN", username: "mosh.hamedani" })
-        }
-        href="#"
-      >
+      <a onClick={() => login("mosh.hamedani")} href="#">
         Login
       </a>
     </div>
