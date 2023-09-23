@@ -1,9 +1,7 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import UserList from "./UserListPage";
 
 const UsersPage = () => {
-  const params = useParams();
-
   return (
     <>
       <div className="row">

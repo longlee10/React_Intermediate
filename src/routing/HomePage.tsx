@@ -2,7 +2,7 @@ import { error } from "console";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
-  throw new Error("somethign failed");
+  // throw new Error("somethign failed");
   return (
     <>
       <p>
